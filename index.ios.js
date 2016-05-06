@@ -26,17 +26,10 @@ class todolist extends Component {
   }
   clickHandleIn(i){
     return e =>{
-      let arrStatus = this.state.arrItem;
+      let {arrStatus,arrItem,item} = this.state;
+
       arrStatus[i]= true;
       console.warn(i);
-      this.setState({arrStatus})
-    }
-    
-  }
-  clickHandleOut(i){
-    return e =>{
-      
-      let {arrStatus,arrItem,item} = this.state;
       if(item ===parseInt(i)) {
          Alert.alert(
           '恭喜',
@@ -49,8 +42,18 @@ class todolist extends Component {
       else {
         arrItem[i]= true;
       }
-      arrStatus[i]= false;
+      console.log(arrItem)
       this.setState({arrStatus,arrItem})
+    }
+    
+  }
+  clickHandleOut(i){
+    return e =>{
+      
+      let arrStatus = this.state.arrStatus;
+      
+      arrStatus[i]= false;
+      this.setState({arrStatus})
     }
     
   }
@@ -65,8 +68,8 @@ class todolist extends Component {
           disabled={this.state.arrItem[i]}
           key={i}
         >
-          <View style={[styles.table,this.state.arrItem[i]&&styles.disabled,this.state.arrStatus[i]&&styles.active]}>
-            <Text>
+          <View style={styles.table}>
+            <Text style={[styles.tableText,this.state.arrItem[i]&&styles.disabled,this.state.arrStatus[i]&&styles.active]}>
               {i+1}
             </Text>
           </View>
@@ -103,19 +106,24 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
+  tableText: {
+    fontSize: 20,
+    textAlign: 'center'
+  },
   instructions: {
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
   },
   table:{
-    height:50
+    height:50,
+    width:100,
   },
   active:{
     backgroundColor: '#C7EDCC'
   },
   disabled: {
-    backgroundColor: '#ccc'
+    backgroundColor: '#eee'
   }
 });
 
